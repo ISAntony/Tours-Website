@@ -1,0 +1,164 @@
+{% extends "layout.html" %}
+
+{% block title %}{{title}}{% endblock title%}
+
+{% block page_content %}
+<div >
+	<div class="container" style="padding-top:30px">
+		<div class="row">
+			<div class="col-xm-12 col-sm-12 col-md-8 col-lg-8 ">
+				<img src="{{post.post_image}}" class="img-rounded account-img" style="width:100%; height: 55vh">
+			</div>
+			<div class="col-xm-12 col-sm-12 col-md-4 col-lg-4 ">
+				<form>
+				  <div class="row">
+				    <div class="col">
+				      <input type="text" class="form-control" placeholder="First name">
+				    </div><br>
+				    <div class="col">
+				      <input type="text" class="form-control" placeholder="Last name">
+				    </div><br>
+				    <div class="col">
+				      <input type="text" class="form-control" placeholder="First name">
+				    </div><br>
+				    <div class="col">
+				      <input type="text" class="form-control" placeholder="First name">
+				    </div><br>
+				    <div class="col">
+				      <input type="text" class="form-control" placeholder="First name">
+				    </div><br>
+				    <div class="col">
+				      <input type="textarea" class="form-control" placeholder="First name">
+				    </div><br>
+				     <label for="comment"></label>
+  					<textarea class="form-control" rows="5" id="comment"></textarea><br>
+				    <div class="col">
+				      <input type="submit" class="btn btn-info btn-block" value="Send">
+				    </div><br>
+
+				  </div>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xm-12 col-sm-12 col-md-12 col-lg-12">
+				
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th><h3>Hotel</h3></th>
+							<th><h3>Costs</h3></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><h5>Mara Budget Camps</h5></td>
+							<td><h5>Ksh.3000</h5></td>
+						</tr>
+						<tr>
+							<td><h5>Mara Budget Camps</h5></td>
+							<td><h5>Ksh.3000</h5></td>
+						</tr>
+						<tr>
+							<td><h5>Mara Budget Camps</h5></td>
+							<td><h5>Ksh.3000</h5></td>
+						</tr>
+						<tr>
+							<td><h5>Mara Budget Camps</h5></td>
+							<td><h5>Ksh.3000</h5></td>
+						</tr>
+						<tr>
+							<td><h5>Mara Budget Camps</h5></td>
+							<td><h5>Ksh.3000</h5></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-xm-12 col-sm-12 col-md-4 col-lg-4 ">
+				
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container" style="padding-bottom:30px">
+	<div class="row">
+		<section>
+			<div class="col-xm-12 col-sm-12 col-md-6 col-lg-6">
+				
+					<h2>Costs include</h2>
+					<p>Transport in an 8 seater shared tour van</p>
+					<p>2 Nights’ accommodation in your preferred option</p>
+					<p>Meals on Full Board basis</p>
+					<p>Comprehensive game drives for the 3 days</p>
+					<p>Entry fees for the guide and the vehicle</p>
+					<p>Services of a Professional driver guide</p>
+					<p>Pick up & drop off in Nairobi</p>
+			</div>
+			<div class="col-xm-12 col-sm-12 col-md-6 col-lg-6">
+				<h2>Costs include</h2>
+				<p>Park Fees</p>
+				<p>Drinks</p>
+				<p>Tips</p>
+			</div>
+					
+		</section>
+		</div>
+	</div>
+</div>
+<div class="container" style="padding-bottom:30px">
+
+
+	{% if current_user.is_authenticated %}
+	<form method="POST" action="{{url_for('post_detail', post_id=post.id)}}" enctype="multipart/form-data">
+			{{form.hidden_tag()}}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Edit </legend>
+				   <div class="form-group">
+				   		{{form.title.label(class="form-control-label")}}
+				   		{% if form.title.errors %}
+				   				{{form.title(class="form-control form-control-lg is-invalid ")}}
+				   				<div class="invalid-feedback">
+				   					{% for error in form.title.errors %}
+				   						<span>{{error}}</span>
+				   					{% endfor%}
+				   				</div>
+				   			{% else%}
+				   				{{form.title(class="form-control form-control-lg")}}
+				   			{% endif %} 
+				   </div>
+				   <div class="form-group">
+				   		{{form.content.label(class="form-control-label")}}
+				   		{% if form.content.errors %}
+				   				{{form.content(class="form-control form-control-lg is-invalid ")}}
+				   				<div class="invalid-feedback">
+				   					{% for error in form.password.errors %}
+				   						<span>{{error}}</span>
+				   					{% endfor%}
+				   				</div>
+				   			{% else%}
+				   				{{form.content(class="form-control form-control-lg")}}
+				   			{% endif %} 
+				   </div>
+				   <div class="form-group">
+				   		{{form.post_image.label()}}
+				   		{{form.post_image(class="form-control-file")}}
+
+				   		{% if form.post_image.errors %}
+				   			{% for error in form.post_image.errors %}
+				   				<span class="text-danger">{{error}}</span>
+				   			{% endfor%}
+				   		{% endif%}
+				   	</div>
+				   
+			</fieldset>
+			<div class="form-group">
+				  {{form.submit(class="btn btn-outline-info")}}
+			</div>
+		</form>
+		<a href="{{url_for('delete_post', post_id=post.id)}}" class="btn btn-danger">Delete</a>
+	{% endif%}
+</div>
+{% endblock page_content %}

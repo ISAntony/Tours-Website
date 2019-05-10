@@ -1,0 +1,117 @@
+{% extends "bootstrap/base.html" %}
+
+
+{% block title %} {{title}} {% endblock title %}
+{% block styles %}
+	{{super()}}
+	<!-- <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='MDB-Free_4.7.6/css/bootstrap.min.css')}}"> -->
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='MDB-Free_4.7.6/css/mdb.css')}}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/styles.css')}}">
+{% endblock styles%}
+
+	
+
+{% block navbar %}
+
+<div class="container-fluid" id="top_navbar">
+	<div class="row">
+		<div class="top_nav" style="padding-top:20px">
+			<div class="col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1" style="padding-top: 0px">
+				
+				<a href="#" class="fa fa-instagram"></a>
+				<a href="#" class="fa fa-google"></a>
+				<a href="#" class="fa fa-linkedin"></a>
+				<a href="#" class="fa fa-youtube"></a>
+			</div>
+			<div class="col-md-5 col-lg-5" style="padding-top: 20px"><span class="glyphicon glyphicon-phone-alt"></span> Phone number : 0737035845  |  0725642715  |  Email: Maxton@gmail.com</div>
+			  
+		</div>
+	</div>
+</div>
+<div id="main_nav"class="navbar navbar-defa" role="navigation" style="margin-bottom:0px;">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">MAXTON TOURS</a>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="/about">ABOUT</a></li>
+				<li><a href="#">BUSH SAFARIS</a></li>
+				<li><a href="/">BEACH HOLIDAYS</a></li>
+				<li><a href="/">GETAWAY</a></li>
+				<li><a href="/">INTERNATIONAL</a></li>
+				<li><a href="/">SEASONAL</a></li>
+
+				<li><a href="/">CONTACT US</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				 {% if current_user.is_authenticated %}
+					<li><a href="{{url_for('account')}}">Account</a></li>
+					<li><a href="{{url_for('new_post')}}">Posts</a></li>
+					<li><a href="{{url_for('logout')}}">Logout</a></li>
+				{% else %}
+				<!-- 	<li><a  href="{{url_for('register')}}">Register</a></li>
+					<li><a  href="{{url_for('login')}}">Login</a></li> -->
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+{% endblock navbar %}
+
+
+{% block content %}
+
+<div class="container">
+	<main role="main" >
+		<div class="row">
+			<div class="">
+				{% with messages = get_flashed_messages(with_categories=true) %}
+					{% if messages %}
+						{% for category,message in messages %}
+							<div class="alert alert-{{category}} ">
+								{{message}}
+							</div>
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+			</div>
+		</div>
+	</main>
+	
+</div>
+{% block page_content %}
+
+
+{% endblock page_content %}
+
+{% block footer %}
+	<div class="container">
+		<div class="navbar navbar-inverse navbar-fixed-bottom" >
+			<div class="row">
+				<div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3">
+					<p>Posted by: Hege Refsnes</p>
+				  	<p>Contact information: <a href="mailto:someone@example.com">
+				  someone@example.com</a>.</p>
+				</div>
+				<!-- <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3"></div> -->
+			</div>
+		</div>
+	</div>
+{% endblock footer %}
+
+{% endblock content %}
+
+
+
+
+
